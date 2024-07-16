@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .raw {
+        @apply flex items-center gap-1.5
+    }
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+}
+
+.hithere {
+    animation: hithere 1s ease infinite;
+}
+
+@keyframes hithere {
+    30% {
+        transform: scale(1.1);
+    }
+
+    40%,
+    60% {
+        transform: rotate(-20deg) scale(1.1);
+    }
+
+    50% {
+        transform: rotate(20deg) scale(1.1);
+    }
+
+    70% {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
