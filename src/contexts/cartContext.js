@@ -25,7 +25,11 @@ function reducer(state, { type, payload }) {
             if (existingItem) {
                 const newCart = state.cart.map((item) => {
                     if (item.id === id) {
-                        return { ...item, qty: item.qty + quantity };
+                        if (existingItem.qty + quantity <= existingItem.maxOrderQty) {
+                            return { ...item, qty: item.qty + quantity };
+                        } else {
+                            return { ...item, qty: existingItem.maxOrderQty };
+                        }
                     }
                     return item;
                 });
@@ -96,6 +100,7 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         dispatch({ type: ACTIONS.GET_TOTAL });
+        console.log(state.cart[0]);
     }, [state.cart]);
 
     return (

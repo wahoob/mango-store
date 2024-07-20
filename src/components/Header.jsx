@@ -12,7 +12,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     return (
-        <div className="flex items-center justify-between gap-7 py-2.5 text-neutral-600 bg-white sticky top-0 z-40 w-full xl:px-44 lg:px-32 px-4">
+        <div className="flex items-center justify-between gap-7 py-2.5 text-neutral-600 bg-white sticky top-0 z-30 w-full xl:px-44 lg:px-32 px-4">
             <div className='raw'>
                 <div className='relative'>
                     <RiMenu3Line className='size-6 md:hidden cursor-pointer' onClick={() => setOpen((prev) => !prev)} />
@@ -44,11 +44,11 @@ export default function Header() {
                 </li>
             </ul>
             <div className="raw gap-8">
-                <div className='raw cursor-pointer' onClick={() => navigate("/login")}>
+                <div className='raw cursor-pointer hover:text-neutral-950' onClick={() => navigate("/my-account")}>
                     <FiUser className='size-6' />
                     <p className='max-sm:hidden'>تسجيل الدخول</p>
                 </div>
-                <div className='raw relative cursor-pointer' onClick={() => navigate("/cart")}>
+                <div className='raw relative cursor-pointer hover:text-neutral-950' onClick={() => navigate("/cart")}>
                     <RiShoppingCartLine className='size-6' />
                     <p>{total.toFixed(2)}</p>
                     <div className='absolute -top-2.5 -right-2 bg-red-600 text-white size-4 flex items-center justify-center text-[0.7rem] rounded-full'>{amount}</div>

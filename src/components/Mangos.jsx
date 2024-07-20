@@ -38,24 +38,16 @@ export default function Mangos() {
 }
 
 const SingleMango = ({ mango }) => {
-    const { id, name, price, image, available, minOrderQty, maxOrderQty, discountPercent } = mango;
+    const { id, name, price, images, available, minOrderQty, maxOrderQty, discountPercent } = mango;
     const { addItem } = useCartContext();
     const navigate = useNavigate();
     const [input, setInput] = useState(minOrderQty);
 
-    useEffect(() => {
-        if (input < minOrderQty) {
-            setInput(minOrderQty);
-        } else if (maxOrderQty && input > maxOrderQty) {
-            setInput(maxOrderQty);
-        }
-    }, [input, minOrderQty, maxOrderQty]);
-
     function updateCount(e, type) {
         e.stopPropagation();
-        if (type === "inc") {
+        if (type === "inc" && (input < maxOrderQty || !maxOrderQty)) {
             setInput((prev) => prev + 1);
-        } else if (type === "dec") {
+        } else if (type === "dec" && input > minOrderQty) {
             setInput((prev) => prev - 1)
         }
     }
@@ -68,7 +60,7 @@ const SingleMango = ({ mango }) => {
 
     return (
         <div className='shadow-md border px-2 py-4 flex flex-col rounded hover:bg-neutral-50 group' onClick={() => navigate(`/mango/${id}`)}>
-            <img src={image} alt={name} className='w-full h-full max-h-52 object-cover mb-1' />
+            <img src={images[0]} alt={name} className='w-full h-full max-h-52 object-cover mb-1' />
             <div className='flex items-start justify-between'>
                 <h3 className='text-lg font-bold'>{name}</h3>
                 <div className='text-neutral-700 text-sm font-medium w-fit'>
