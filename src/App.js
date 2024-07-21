@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { About, AuthForm, Cart, Home, Login, Mango, Signup } from './pages';
 import { Footer, Header, StickyPrompt, Waiting } from './components';
+import "react-toastify/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [showWaiting, setShowWaiting] = useState(false);
@@ -33,6 +35,7 @@ export default function App() {
         </Routes>
         <Footer />
         <StickyPrompt />
+        <ToastContainer />
       </div>
     </div>
   );

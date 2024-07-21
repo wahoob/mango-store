@@ -31,7 +31,7 @@ export default function Login() {
                     <input type={showPassword ? "text" : "password"} placeholder='كلمة المرور' className='border rounded pr-4 pl-8 py-1 border-neutral-300 shadow-inner outline-none focus:border-neutral-400 w-full' {...register("password")} />
                     <ShowOrHideIcon className='absolute top-1/2 left-2 -translate-y-1/2 text-neutral-400 cursor-pointer' onClick={() => setShowPassword((prev) => !prev)} />
                 </div>
-                <button type='button' className='text-orange-500 font-semibold text-sm hover:text-orange-600'>هل نسيت كلمة السر؟</button>
+                <button type='button' className='text-orange-500 font-semibold text-sm hover:text-orange-600'>هل نسيت كلمة المرور؟</button>
                 <button type='submit' className='text-white bg-orange-600 hover:bg-orange-700 w-full py-2 rounded max-sm:text-xs'>تسجيل الدخول</button>
             </form>
             <p className='text-center font-semibold text-sm'>ليس لديك حساب؟ <Link to="signup" className='text-orange-500 hover:text-orange-600'>إنشاء حساب جديد</Link></p>

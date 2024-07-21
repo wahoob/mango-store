@@ -4,9 +4,11 @@ import AddressForm from '../components/AddressForm';
 import { GoPlus } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { toast } from 'react-toastify';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 export default function Cart() {
-    const { amount, cart, total } = useCartContext();
+    const { amount, cart, total, clearCart } = useCartContext();
     const [open, setOpen] = useState();
 
     return (
@@ -71,10 +73,16 @@ export default function Cart() {
                                 {cart.map((item) => <CartItem key={item.id} {...item} />)}
                             </div>
                         </div>
-                        <Link to="/" className='raw font-bold text-orange-600'>
-                            <p>تابع التسوق</p>
-                            <IoIosArrowRoundBack className='size-6' />
-                        </Link>
+                        <div className='flex items-center justify-between font-bold text-orange-600'>
+                            <Link to="/" className='raw'>
+                                <p>تابع التسوق</p>
+                                <IoIosArrowRoundBack className='size-6' />
+                            </Link>
+                            <button className='raw' onClick={() => clearCart()}>
+                                <p className=''>إزالة جميع المنتجات</p>
+                                <FaRegTrashAlt className='' />
+                            </button>
+                        </div>
                     </>
                 ) : (
                     <div className='w-full flex flex-col justify-center items-center py-8 space-y-2'>
@@ -100,12 +108,20 @@ const CartItem = ({ id, name, price, images, minOrderQty, maxOrderQty, qty }) =>
 
 
     function updateCount(type) {
-        if (type === "inc" && (input < maxOrderQty || !maxOrderQty)) {
-            setInput((prev) => prev + 1);
-            toggleQTY(id, "inc");
-        } else if (type === "dec" && input > minOrderQty) {
-            setInput((prev) => prev - 1);
-            toggleQTY(id, "dec");
+        if (type === "inc") {
+            if (input < maxOrderQty || !maxOrderQty) {
+                setInput((prev) => prev + 1);
+                toggleQTY(id, "inc");
+            } else {
+                toast.warn("لا يمكنك تجاوز هذه الكمية");
+            }
+        } else if (type === "dec") {
+            if (input > minOrderQty) {
+                setInput((prev) => prev - 1);
+                toggleQTY(id, "dec");
+            } else {
+                toast.warn("لا يمكنك طلب كمية اقل من هذا المنتج");
+            }
         }
     }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from '../contexts/cartContext';
+import { QuantitySelector } from "../components";
 
 export default function Mangos() {
     const [loading, setLoading] = useState(false);
@@ -43,15 +44,6 @@ const SingleMango = ({ mango }) => {
     const navigate = useNavigate();
     const [input, setInput] = useState(minOrderQty);
 
-    function updateCount(e, type) {
-        e.stopPropagation();
-        if (type === "inc" && (input < maxOrderQty || !maxOrderQty)) {
-            setInput((prev) => prev + 1);
-        } else if (type === "dec" && input > minOrderQty) {
-            setInput((prev) => prev - 1)
-        }
-    }
-
     function addToCart(e) {
         e.stopPropagation();
         addItem(mango, input);
@@ -78,10 +70,8 @@ const SingleMango = ({ mango }) => {
             </div>
             <div className='raw mt-4'>
                 <button className='bg-orange-500 py-1 text-neutral-100 flex-1 hover:bg-orange-600' onClick={(e) => addToCart(e)}>أضِف للسلة</button>
-                <div className='flex items-center basis-2/5'>
-                    <button className='border py-1 px-3 hover:bg-neutral-100 rounded' onClick={(e) => updateCount(e, "inc")}>+</button>
-                    <input type='number' className='outline-0 appearance-none text-center flex-1 min-w-12 w-1/5 group-hover:bg-zinc-50' value={input} onChange={(e) => setInput(e.target.value)} onClick={(e) => e.stopPropagation()} />
-                    <button className='border py-1 px-3 hover:bg-neutral-100 rounded' onClick={(e) => updateCount(e, "dec")}>-</button>
+                <div className='basis-2/5'>
+                    <QuantitySelector input={input} setInput={setInput} minOrderQty={minOrderQty} maxOrderQty={maxOrderQty} className="min-w-12 w-1/5" />
                 </div>
             </div>
         </div>

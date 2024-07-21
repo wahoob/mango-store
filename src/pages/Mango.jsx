@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useCartContext } from '../contexts/cartContext';
+import { QuantitySelector } from '../components';
 
 export default function Mango() {
     const { id } = useParams();
@@ -10,14 +11,6 @@ export default function Mango() {
     const [loading, setLoading] = useState(true);
     const [current, setCurrent] = useState(0);
     const [input, setInput] = useState(1);
-
-    function updateCount(type) {
-        if (type === "inc" && (input < maxOrderQty || !maxOrderQty)) {
-            setInput((prev) => prev + 1);
-        } else if (type === "dec" && input > minOrderQty) {
-            setInput((prev) => prev - 1)
-        }
-    }
 
     const getMango = useCallback(async () => {
         try {
@@ -69,11 +62,7 @@ export default function Mango() {
                 </div>
                 <div className='space-y-8'>
                     <div className='raw gap-4 flex-wrap'>
-                        <div className='flex'>
-                            <button className='border py-1 px-3 hover:bg-neutral-100 rounded' onClick={() => updateCount("dec")}>-</button>
-                            <input type='number' className='outline-0 appearance-none text-center flex-1 max-w-16 group-hover:bg-zinc-50' value={input} onChange={(e) => setInput(e.target.value)} />
-                            <button className='border py-1 px-3 hover:bg-neutral-100 rounded' onClick={() => updateCount("inc")}>+</button>
-                        </div>
+                        <QuantitySelector input={input} setInput={setInput} minOrderQty={minOrderQty} maxOrderQty={maxOrderQty} className="max-w-16" />
                         <button className='text-white font-semibold bg-orange-600 hover:bg-orange-700 px-16 py-1 flex-1 whitespace-nowrap max-w-96' onClick={() => addItem(mango, input)}>إضافة الى السلة</button>
                     </div>
                     <p>اجمالي السعر: <span className='font-bold'>{(price * input).toFixed(2)}</span></p>

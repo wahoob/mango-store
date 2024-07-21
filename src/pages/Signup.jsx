@@ -30,7 +30,7 @@ export default function Signup() {
                 <input type='text' placeholder='البريد الإلكتروني' className='border rounded px-4 py-1 border-neutral-300 shadow-inner outline-none focus:border-neutral-400' {...register("email")} />
                 <input type="password" placeholder='إنشاء كلمة مرور' className='border rounded pr-4 pl-8 py-1 border-neutral-300 shadow-inner outline-none focus:border-neutral-400 w-full' {...register("password")} />
                 <div className='relative w-full'>
-                    <input type={showPassword ? "text" : "password"} placeholder='تأكيد كلمة مرور' className='border rounded pr-4 pl-8 py-1 border-neutral-300 shadow-inner outline-none focus:border-neutral-400 w-full' {...register("confirmPassword")} />
+                    <input type={showPassword ? "text" : "password"} placeholder='تأكيد كلمة المرور' className='border rounded pr-4 pl-8 py-1 border-neutral-300 shadow-inner outline-none focus:border-neutral-400 w-full' {...register("confirmPassword")} />
                     <ShowOrHideIcon className='absolute top-1/2 left-2 -translate-y-1/2 text-neutral-400 cursor-pointer' onClick={() => setShowPassword((prev) => !prev)} />
                 </div>
                 <button type='submit' className='text-white bg-orange-600 hover:bg-orange-700 w-full py-2 rounded max-sm:text-xs'>إنشاء حساب</button>

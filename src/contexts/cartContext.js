@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { toast } from "react-toastify";
 
 const CartContext = createContext();
 
@@ -25,7 +26,7 @@ function reducer(state, { type, payload }) {
             if (existingItem) {
                 const newCart = state.cart.map((item) => {
                     if (item.id === id) {
-                        if (existingItem.qty + quantity <= existingItem.maxOrderQty) {
+                        if (!existingItem.maxOrderQty || existingItem.qty + quantity <= existingItem.maxOrderQty) {
                             return { ...item, qty: item.qty + quantity };
                         } else {
                             return { ...item, qty: existingItem.maxOrderQty };
@@ -87,15 +88,18 @@ export const CartProvider = ({ children }) => {
 
     function addItem(cartItem, quantity) {
         dispatch({ type: ACTIONS.ADD_ITEM, payload: { cartItem, quantity } });
+        toast.success("تم إضافة المنتج لعربة التسوق");
     }
     function deleteItem(id) {
         dispatch({ type: ACTIONS.DELETE_ITEM, payload: { id } });
+        toast.success("تم إزالة المنتج من عربة التسوق");
     }
     function toggleQTY(id, instruction) {
         dispatch({ type: ACTIONS.TOGGLE, payload: { id, instruction } });
     }
     function clearCart() {
         dispatch({ type: ACTIONS.CLEAR });
+        toast.success("تم إزالة جميع المنتجات من عربة التسوق");
     }
 
     useEffect(() => {
